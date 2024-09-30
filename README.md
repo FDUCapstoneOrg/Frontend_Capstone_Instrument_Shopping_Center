@@ -1,3 +1,5 @@
+Group 5: Xiao Su 2097658 Angran Li 2097002 Dongye Liu 2075960
+
 # instrument_shopping_center
 
 ## Project setup
