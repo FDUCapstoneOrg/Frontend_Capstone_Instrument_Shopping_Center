@@ -18,7 +18,7 @@
     </el-header>
     <div class="product-list">
       <div>Product List</div>
-      <el-table :data="productList" stripe border style="width: 100%">
+      <el-table :data="instrumentList" stripe border style="width: 100%">
         <el-table-column prop="name" label="Product Name" width="180" align="center"
           header-align="center"></el-table-column>
         <el-table-column prop="category" label="Category" width="120" align="center"
@@ -43,12 +43,12 @@
           <template slot-scope="scope">
             <el-button @click="goToDetail(scope.row)" type="text" size="small"
               style="text-decoration: underline;">Detail</el-button>
-            <el-button type="text" size="small" style="text-decoration: underline;">Add to Cart</el-button>
+            <el-button @click="addToCart(scope.row)" type="text" size="small" style="text-decoration: underline;">Add to Cart</el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination background layout="prev, pager, next" :total="totalItems" :page-size="pageSize"
-        :current-page.sync="currentPage" @current-change="getProductList">
+        :current-page.sync="currentPage" @current-change="getInstrumentList">
       </el-pagination>
     </div>
   </div>
@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       username: "",
-      productList: [],
+      instrumentList: [],
       totalItems: 0,
       currentPage: 1,
       pageSize: 10,
@@ -68,8 +68,8 @@ export default {
   },
   created() {
     this.username = localStorage.getItem('user');
-    this.getProductList();
-    this.productList = [
+    this.getInstrumentList();
+    this.instrumentList = [
       {
         name: '智能手机',
         category: '电子产品',
@@ -103,7 +103,7 @@ export default {
     ]
   },
   methods: {
-    getProductList() {
+    getInstrumentList() {
       this.$axios.get('/Instrument/getInstrumentList', {
         params: {
           page: this.currentPage,
@@ -112,7 +112,7 @@ export default {
       })
         .then(response => {
           console.log(response.data);
-          this.productList = response.data.productList;
+          this.instrumentList = response.data.instrumentList;
           this.totalItems = response.data.total;
         })
         .catch(error => {
@@ -122,6 +122,9 @@ export default {
     goToDetail(row) {
       console.log(row);
     },
+    addToCart(row){
+      console.log(row);
+    }
   }
 };
 </script>
