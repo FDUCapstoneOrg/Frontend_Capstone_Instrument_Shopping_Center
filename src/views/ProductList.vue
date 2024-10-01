@@ -2,8 +2,11 @@
   <div>
     <el-header>
       <div class="header-container">
-        <div class="welcome-message">
-          {{ username }}, Welcome!
+        <div class="header-left">
+          <img src="@/assets/music1.png" alt="">
+          <div class="welcome-message">
+            {{ username }}, Welcome!
+          </div>
         </div>
         <el-dropdown trigger="click">
           <el-button type="text">
@@ -43,12 +46,14 @@
           <template slot-scope="scope">
             <el-button @click="goToDetail(scope.row)" type="text" size="small"
               style="text-decoration: underline;">Detail</el-button>
-            <el-button @click="addToCart(scope.row)" type="text" size="small" style="text-decoration: underline;">Add to Cart</el-button>
+            <el-button @click="addToCart(scope.row)" type="text" size="small" style="text-decoration: underline;">Add to
+              Cart</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination background layout="total, sizes, prev, pager, next" :total="totalItems" :page-size="pageSize" :page-sizes="[5, 10, 15, 20, 30]"
-        :current-page.sync="currentPage" @current-change="getInstrumentList" @size-change="handleSizeChange">
+      <el-pagination background layout="total, sizes, prev, pager, next" :total="totalItems" :page-size="pageSize"
+        :page-sizes="[5, 10, 15, 20, 30]" :current-page.sync="currentPage" @current-change="getInstrumentList"
+        @size-change="handleSizeChange">
       </el-pagination>
     </div>
   </div>
@@ -103,7 +108,7 @@ export default {
     ]
   },
   methods: {
-    handleSizeChange(pageSize){
+    handleSizeChange(pageSize) {
       this.pageSize = pageSize;
       this.currentPage = 1;
       this.getInstrumentList();
@@ -127,7 +132,7 @@ export default {
     goToDetail(row) {
       console.log(row);
     },
-    addToCart(row){
+    addToCart(row) {
       console.log(row);
     }
   }
@@ -154,6 +159,19 @@ export default {
   /* 加粗字体 */
   color: #409EFF;
   /* 字体颜色，Element UI 的主题色 */
+  margin-left: 10px;
+}
+
+.header-left {
+  display: flex;
+  justify-content: space-between;
+  /* 让内容两端对齐 */
+  align-items: center;
+  /* 垂直居中 */
+  padding: 0 20px;
+  /* 左右内边距 */
+  height: 100%;
+  /* 高度占满 */
 }
 
 .el-table {
@@ -161,7 +179,7 @@ export default {
 }
 
 .product-list {
-  padding: 10px 40px;
+  padding: 20px 40px;
 }
 
 .el-pagination {
