@@ -7,11 +7,11 @@
         </div>
         <el-dropdown trigger="click">
           <el-button type="text">
-            个人中心 <el-icon name="arrow-down"></el-icon>
+            User Center <el-icon name="arrow-down"></el-icon>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>设置</el-dropdown-item>
-            <el-dropdown-item>退出</el-dropdown-item>
+            <el-dropdown-item>Setting</el-dropdown-item>
+            <el-dropdown-item>Sign Out</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -19,7 +19,7 @@
     <div class="product-list">
       <div>Product List</div>
       <el-table :data="instrumentList" stripe border style="width: 100%">
-        <el-table-column prop="name" label="Product Name" width="180" align="center"
+        <el-table-column prop="name" label="Instrument Name" width="180" align="center"
           header-align="center"></el-table-column>
         <el-table-column prop="category" label="Category" width="120" align="center"
           header-align="center"></el-table-column>
@@ -47,8 +47,8 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination background layout="prev, pager, next" :total="totalItems" :page-size="pageSize"
-        :current-page.sync="currentPage" @current-change="getInstrumentList">
+      <el-pagination background layout="total, sizes, prev, pager, next" :total="totalItems" :page-size="pageSize" :page-sizes="[5, 10, 15, 20, 30]"
+        :current-page.sync="currentPage" @current-change="getInstrumentList" @size-change="handleSizeChange">
       </el-pagination>
     </div>
   </div>
@@ -103,6 +103,11 @@ export default {
     ]
   },
   methods: {
+    handleSizeChange(pageSize){
+      this.pageSize = pageSize;
+      this.currentPage = 1;
+      this.getInstrumentList();
+    },
     getInstrumentList() {
       this.$axios.get('/Instrument/getInstrumentList', {
         params: {
