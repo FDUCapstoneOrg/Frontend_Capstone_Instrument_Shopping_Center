@@ -5,6 +5,12 @@
                 <h2 class="login-title">Welcome to be a new user!</h2>
 
                 <el-form :model="loginForm" ref="loginForm" :rules="rules" label-width="150px">
+                    <el-form-item label="User type">
+                        <el-radio-group v-model="loginForm.role">
+                            <el-radio label="customer"></el-radio>
+                            <el-radio label="seller"></el-radio>
+                        </el-radio-group>
+                    </el-form-item>
                     <!-- 用户名输入框 -->
                     <el-form-item label="Username" prop="username">
                         <el-input v-model="loginForm.username" placeholder="Enter your username"></el-input>
@@ -37,6 +43,7 @@ export default {
         return {
             // 表单数据
             loginForm: {
+                role: 'customer',
                 username: '',
                 password: '',
                 passwordAgain: ''
@@ -61,9 +68,19 @@ export default {
         handleRegister() {
             this.$refs.loginForm.validate((valid) => {
                 if (valid) {
-                    localStorage.setItem('user', this.form.username);
-                    // 模拟登录逻辑
-                    this.$router.push('/productList');
+                    this.$axios.post('/Authentication/register', {
+                        role: this.loginForm.role,
+                        username: this.loginForm.username,
+                        password: this.loginForm.password,
+                    })
+                        .then(response => {
+                            console.log(response.data);
+                            this.$router.push('/');
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+
                 } else {
                     console.log('Error during register');
                     return false;
@@ -116,5 +133,13 @@ export default {
     color: #888888;
     padding: 10px 0;
     margin-top: 20px;
+}
+
+.el-radio-group {
+    width: 80%;
+}
+
+.el-radio {
+    margin-right: 100px;
 }
 </style>

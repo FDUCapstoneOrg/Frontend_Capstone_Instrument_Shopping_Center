@@ -13,11 +13,26 @@ Vue.use(VueI18n);
 Vue.use(ElementUI, { locale });
 Vue.use(ElementUI);
 
-// set base URL
-axios.defaults.baseURL = 'http://localhost';
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost', 
+});
+
+// 请求拦截器：每次请求都附加JWT
+axiosInstance.interceptors.request.use(
+  (config) => {
+      const token = localStorage.getItem('jwtToken');
+      if (token) {
+          config.headers['Authorization'] = `Bearer ${token}`;  // 将JWT添加到请求头中
+      }
+      return config;
+  },
+  (error) => {
+      return Promise.reject(error);
+  }
+);
 
 // use this.$axios
-Vue.prototype.$axios = axios;
+Vue.prototype.$axios = axiosInstance;
 
 new Vue({
   render: h => h(App),
