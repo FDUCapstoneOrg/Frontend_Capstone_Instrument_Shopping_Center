@@ -37,9 +37,9 @@
           header-align="center"></el-table-column>
         <el-table-column prop="stockQuantity" label="Stock Quantity" width="120" align="center"
           header-align="center"></el-table-column>
-        <el-table-column prop="rating" label="Rating" width="100" align="center" header-align="center">
+        <el-table-column prop="rating" label="Rating" width="150" align="center" header-align="center">
           <template slot-scope="scope">
-            <el-rate v-model="scope.row.rating" disabled show-score></el-rate>
+            <el-rate v-model="scope.row.rating" disabled></el-rate>
           </template>
         </el-table-column>
         <el-table-column label="Operation" align="center" width="130">
@@ -83,7 +83,7 @@ export default {
         description: '一款高性能智能手机',
         material: '金属',
         stockQuantity: 50,
-        rating: 4.5
+        rating: 1
       },
       {
         name: '笔记本电脑',
@@ -93,7 +93,7 @@ export default {
         description: '轻薄型笔记本电脑',
         material: '铝合金',
         stockQuantity: 30,
-        rating: 4.8
+        rating: 5
       },
       {
         name: '运动鞋',
@@ -103,7 +103,7 @@ export default {
         description: '透气舒适运动鞋',
         material: '织物',
         stockQuantity: 100,
-        rating: 4.2
+        rating: 3
       },
     ]
   },

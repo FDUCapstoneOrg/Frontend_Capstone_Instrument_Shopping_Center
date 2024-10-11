@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import LoginPage from '../views/LoginPage.vue'; 
 import ProductList from '../views/ProductList.vue'; 
+import Register from '../views/RegisterPage.vue';
 
 Vue.use(Router);
 
@@ -18,6 +19,11 @@ const router = new Router({
       path: '/productList',
       name: 'ProductList',
       component: ProductList
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
     }
   ]
 });
