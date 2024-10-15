@@ -8,13 +8,13 @@
             {{ username }}, Welcome!
           </div>
         </div>
-        <el-dropdown trigger="click">
+        <el-dropdown trigger="click" @command="handleCommand">
           <el-button type="text">
             User Center <el-icon name="arrow-down"></el-icon>
           </el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>Setting</el-dropdown-item>
-            <el-dropdown-item @click="signOut">Sign Out</el-dropdown-item>
+            <el-dropdown-item command="signout">Sign Out</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -135,14 +135,22 @@ export default {
     addToCart(row) {
       console.log(row);
     },
-    signOut() {
-      localStorage.removeItem('jwtToken');
-      this.$message({
-        message: 'Logout successful, please login again.',
-        type: 'success'
-      });
-      this.$router.push('/');
+    handleCommand(option) {
+      switch (option) {
+        case 'signout':
+          localStorage.removeItem('jwtToken');
+          this.$message({
+            message: 'Logout successful, please login again.',
+            type: 'success'
+          });
+          this.$router.push('/');
+          // 执行选项1的逻辑
+          break;
+        default:
+          break;
+      }
     }
+
   }
 };
 </script>
