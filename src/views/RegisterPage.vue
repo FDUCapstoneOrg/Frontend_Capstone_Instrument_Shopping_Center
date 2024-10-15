@@ -27,6 +27,15 @@
                         <el-input v-model="loginForm.passwordAgain" type="password"
                             placeholder="Enter your password again"></el-input>
                     </el-form-item>
+                    <el-form-item label="Email" prop="email">
+                        <el-input v-model="loginForm.email" placeholder="Enter your email"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Phone number" prop="phoneNumber">
+                        <el-input v-model="loginForm.phoneNumber" placeholder="Enter your phone number"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Address" prop="address">
+                        <el-input v-model="loginForm.address" placeholder="Enter your address"></el-input>
+                    </el-form-item>
                 </el-form>
                 <el-button class="login-button" type="primary" @click="handleRegister">Register</el-button>
 
@@ -46,7 +55,10 @@ export default {
                 role: 'customer',
                 username: '',
                 password: '',
-                passwordAgain: ''
+                passwordAgain: '',
+                email: '',
+                phoneNumber: '',
+                address: ''
             },
             // 验证规则
             rules: {
@@ -71,6 +83,9 @@ export default {
                         role: this.loginForm.role == "customer" ? "ROLE_CUSTOMER" : "ROLE_SELLER",
                         username: this.loginForm.username,
                         password: this.loginForm.password,
+                        email: this.loginForm.email,
+                        phoneNumber: this.loginForm.phoneNumber,
+                        address: this.loginForm.address,
                     })
                         .then(response => {
                             console.log(response.data);
