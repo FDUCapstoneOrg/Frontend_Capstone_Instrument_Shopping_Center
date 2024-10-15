@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import LoginPage from '../views/LoginPage.vue'; 
 import ProductList from '../views/ProductList.vue'; 
 import Register from '../views/RegisterPage.vue';
+import UserProfile from '../views/UserProfile.vue';
 
 Vue.use(Router);
 
@@ -24,6 +25,11 @@ const router = new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/profile',
+      name: UserProfile,
+      component: UserProfile
     }
   ]
 });

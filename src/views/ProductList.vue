@@ -13,7 +13,7 @@
             User Center <el-icon name="arrow-down"></el-icon>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>Setting</el-dropdown-item>
+            <el-dropdown-item command="profile">Profile</el-dropdown-item>
             <el-dropdown-item command="signout">Sign Out</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -145,6 +145,9 @@ export default {
           });
           this.$router.push('/');
           // 执行选项1的逻辑
+          break;
+        case 'profile':
+          this.$router.push('/profile');
           break;
         default:
           break;
