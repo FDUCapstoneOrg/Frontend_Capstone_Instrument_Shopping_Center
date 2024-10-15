@@ -74,38 +74,38 @@ export default {
   created() {
     this.username = localStorage.getItem('user');
     this.getInstrumentList();
-    this.instrumentList = [
-      {
-        name: '智能手机',
-        category: '电子产品',
-        brand: 'Brand A',
-        price: 4999,
-        description: '一款高性能智能手机',
-        material: '金属',
-        stockQuantity: 50,
-        rating: 1
-      },
-      {
-        name: '笔记本电脑',
-        category: '电子产品',
-        brand: 'Brand B',
-        price: 8999,
-        description: '轻薄型笔记本电脑',
-        material: '铝合金',
-        stockQuantity: 30,
-        rating: 5
-      },
-      {
-        name: '运动鞋',
-        category: '服装',
-        brand: 'Brand C',
-        price: 599,
-        description: '透气舒适运动鞋',
-        material: '织物',
-        stockQuantity: 100,
-        rating: 3
-      },
-    ]
+    // this.instrumentList = [
+    //   {
+    //     name: '智能手机',
+    //     category: '电子产品',
+    //     brand: 'Brand A',
+    //     price: 4999,
+    //     description: '一款高性能智能手机',
+    //     material: '金属',
+    //     stockQuantity: 50,
+    //     rating: 1
+    //   },
+    //   {
+    //     name: '笔记本电脑',
+    //     category: '电子产品',
+    //     brand: 'Brand B',
+    //     price: 8999,
+    //     description: '轻薄型笔记本电脑',
+    //     material: '铝合金',
+    //     stockQuantity: 30,
+    //     rating: 5
+    //   },
+    //   {
+    //     name: '运动鞋',
+    //     category: '服装',
+    //     brand: 'Brand C',
+    //     price: 599,
+    //     description: '透气舒适运动鞋',
+    //     material: '织物',
+    //     stockQuantity: 100,
+    //     rating: 3
+    //   },
+    // ]
   },
   methods: {
     handleSizeChange(pageSize) {
