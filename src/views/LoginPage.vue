@@ -58,8 +58,38 @@ export default {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           localStorage.setItem('user', username);
+          this.$axios.post('/User/login', {
+            role: "ROLE_CUSTOMER",
+            username: this.loginForm.username,
+            password: this.loginForm.password,
+          })
+            .then(response => {
+              console.log(response.data);
+              let res = response.data;
+              if (res['code'] == 200) {
+                localStorage.setItem('jwtToken', res['jwtToken']);
+                this.$message({
+                  message: 'Login successful!',
+                  type: 'success'
+                });
+                this.$router.push('/productList');
+              }
+              else {
+                this.$message({
+                  message: 'Login failed, please try again.',
+                  type: 'error'
+                });
+              }
+
+            })
+            .catch(error => {
+              console.error(error);
+              this.$message({
+                message: 'Login failed, please try again.',
+                type: 'error'
+              });
+            });
           // 模拟登录逻辑
-          this.$router.push('/productList');
         } else {
           console.log('Error during login');
           return false;

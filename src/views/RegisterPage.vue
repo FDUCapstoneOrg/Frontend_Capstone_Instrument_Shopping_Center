@@ -64,21 +64,38 @@ export default {
         };
     },
     methods: {
-        // 处理登录按钮点击
         handleRegister() {
             this.$refs.loginForm.validate((valid) => {
                 if (valid) {
-                    this.$axios.post('/Authentication/register', {
-                        role: this.loginForm.role,
+                    this.$axios.post('/User/register', {
+                        role: this.loginForm.role == "customer" ? "ROLE_CUSTOMER" : "ROLE_SELLER",
                         username: this.loginForm.username,
                         password: this.loginForm.password,
                     })
                         .then(response => {
                             console.log(response.data);
-                            this.$router.push('/');
+                            let res = response.data;
+                            if (res['code'] == 200) {
+                                this.$message({
+                                    message: 'Registration successful, please login.',
+                                    type: 'success'
+                                });
+                                this.$router.push('/');
+                            }
+                            else {
+                                this.$message({
+                                    message: 'Registration failed, please try again.',
+                                    type: 'error'
+                                });
+                            }
+
                         })
                         .catch(error => {
-                            console.error(error);
+                            console.log(error);
+                            this.$message({
+                                message: 'Registration failed, please try again.',
+                                type: 'error'
+                            });
                         });
 
                 } else {
