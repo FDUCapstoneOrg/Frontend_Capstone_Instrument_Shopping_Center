@@ -14,7 +14,7 @@
           </el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>Setting</el-dropdown-item>
-            <el-dropdown-item>Sign Out</el-dropdown-item>
+            <el-dropdown-item @click="signOut">Sign Out</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -134,6 +134,14 @@ export default {
     },
     addToCart(row) {
       console.log(row);
+    },
+    signOut() {
+      localStorage.removeItem('jwtToken');
+      this.$message({
+        message: 'Logout successful, please login again.',
+        type: 'success'
+      });
+      this.$router.push('/');
     }
   }
 };
