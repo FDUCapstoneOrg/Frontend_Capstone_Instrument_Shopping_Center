@@ -86,25 +86,30 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 600px;
+  min-height: 100vh;
   background-color: #f2f2f2;
+  padding: auto;
+  box-sizing:border-box;
 }
 
 .card {
-  width: 700px;
-  padding: 20px;
+  width: 100%;
+  max-width:700px;
+  padding: 30px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 .title {
   text-align: center;
-  margin-bottom: 60px;
-  font-size: 24px;
+  margin-bottom: 40px;
+  font-size: 28px;
   color: #409EFF;
 }
 
 .button {
-  text-align: center;
-  margin-bottom: 10px;
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
 }
 
 .content>div {
