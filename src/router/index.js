@@ -4,6 +4,7 @@ import LoginPage from '../views/LoginPage.vue';
 import ProductList from '../views/ProductList.vue'; 
 import Register from '../views/RegisterPage.vue';
 import UserProfile from '../views/UserProfile.vue';
+import ShoppingCart from '../views/ShoppingCart.vue';
 
 Vue.use(Router);
 
@@ -30,6 +31,11 @@ const router = new Router({
       path: '/profile',
       name: UserProfile,
       component: UserProfile
+    },
+    {
+      path: '/cart',
+      name: ShoppingCart,
+      component: ShoppingCart
     }
   ]
 });

@@ -8,15 +8,20 @@
             {{ username }}, Welcome!
           </div>
         </div>
-        <el-dropdown trigger="click" @command="handleCommand">
-          <el-button type="text">
-            User Center <el-icon name="arrow-down"></el-icon>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="profile">Profile</el-dropdown-item>
-            <el-dropdown-item command="signout">Sign Out</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <div class="header-right">
+
+          <i class="el-icon-shopping-cart-2 cart" @click="goToCart"></i>
+
+          <el-dropdown trigger="click" @command="handleCommand">
+            <el-button type="text">
+              User Center <el-icon name="arrow-down"></el-icon>
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="profile">Profile</el-dropdown-item>
+              <el-dropdown-item command="signout">Sign Out</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
       </div>
     </el-header>
     <div class="product-list">
@@ -108,6 +113,9 @@ export default {
     // ]
   },
   methods: {
+    goToCart(){
+      this.$router.push('/cart');
+    },
     handleSizeChange(pageSize) {
       this.pageSize = pageSize;
       this.currentPage = 1;
@@ -191,6 +199,19 @@ export default {
   /* 左右内边距 */
   height: 100%;
   /* 高度占满 */
+}
+
+.header-right {
+  display: flex;
+}
+
+.cart {
+  margin: auto 20px;
+  position: relative;
+  top: -1px;
+  color: #409EFF;
+  font-size: large;
+  cursor: pointer;
 }
 
 .el-table {
