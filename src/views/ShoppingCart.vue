@@ -24,6 +24,9 @@
             <CartItem v-for="(product, index) in cartList" :key="index" :product="product" />
             <div class="bottomline"></div>
         </div>
+        <div class="total">
+            Subtotal ({{ totalQnt }} items): ${{ totalPrice }}
+        </div>
         <el-button type="primary">Check Out</el-button>
     </div>
 </template>
@@ -37,7 +40,9 @@ export default {
     data() {
         return {
             username: "",
-            cartList: []
+            cartList: [],
+            totalQnt: 0,
+            totalPrice: 0
         };
     },
     created() {
@@ -164,5 +169,12 @@ export default {
 }
 .title {
     margin-bottom: 20px;
+}
+.total {
+    margin: 20px;
+    text-align: right;
+    padding-right: 100px;
+    font-size: large;
+    font-weight: bolder;
 }
 </style>
