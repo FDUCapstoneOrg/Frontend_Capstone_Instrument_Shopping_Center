@@ -23,7 +23,7 @@
                 <!-- 数量选择和添加到购物车按钮 -->
                 <el-row :gutter="10">
                     <el-col :span="8">
-                        <el-input-number v-model="quantity" :min="1" label="数量"></el-input-number>
+                        <el-input-number v-model="quantity" :min="1" label="Quantity"></el-input-number>
                     </el-col>
                     <el-col :span="16">
                         <el-button type="primary" icon="el-icon-shopping-cart-full" @click="addToCart">
@@ -36,16 +36,16 @@
 
         <!-- 商品详情和评论信息 -->
         <el-tabs type="border-card" class="product-tabs">
-            <el-tab-pane label="商品详情">
+            <el-tab-pane label="Product Detail">
                 <p>{{ product.details }}</p>
             </el-tab-pane>
-            <el-tab-pane label="用户评论">
+            <el-tab-pane label="Comments">
                 <el-list v-if="product.reviews.length > 0">
                     <el-list-item v-for="(review, index) in product.reviews" :key="index">
                         <p><strong>{{ review.username }}:</strong> {{ review.comment }}</p>
                     </el-list-item>
                 </el-list>
-                <p v-else>暂无评论</p>
+                <p v-else>No Reviews</p>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -72,7 +72,7 @@ export default {
     methods: {
         addToCart() {
             this.$message({
-                message: `已将${this.quantity}件商品添加到购物车`,
+                message: `Added${this.quantity}items in shopping cart`,
                 type: "success",
             });
         },
