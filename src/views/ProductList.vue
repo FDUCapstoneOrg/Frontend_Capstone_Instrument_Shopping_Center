@@ -139,6 +139,7 @@ export default {
     },
     goToDetail(row) {
       console.log(row);
+      this.$router.push('/detail');
     },
     addToCart(row) {
       console.log(row);
