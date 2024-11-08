@@ -9,28 +9,38 @@
             <!-- 右侧商品信息展示 -->
             <el-col :span="18">
                 <h1>{{ product.name }}</h1>
+                <div class="desc">{{ product.description }}</div>
                 <el-divider></el-divider>
 
                 <el-row>
-                    <el-col :span="12">
-                        <p class="price">Price：${{ product.price }}</p>
+                    <el-col :span="8">
+                        <p class="sub-title">Category：{{ product.category }}</p>
                     </el-col>
-                    <el-col :span="12">
-                        <p class="description">{{ product.description }}</p>
+                    <el-col :span="8">
+                        <p class="sub-title">Brand：{{ product.brand }}</p>
+                    </el-col>
+                    <el-col :span="8">
+                        <p class="sub-title">Material：{{ product.material }}</p>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="8">
+                        <p class="sub-title">Rating：{{ product.rating }}</p>
+                    </el-col>
+                    <el-col :span="8">
+                        <p class="price">Price：${{ product.price }}</p>
                     </el-col>
                 </el-row>
 
+                <el-divider></el-divider>
                 <!-- 数量选择和添加到购物车按钮 -->
-                <el-row :gutter="10">
-                    <el-col :span="8">
-                        <el-input-number v-model="quantity" :min="1" label="Quantity"></el-input-number>
-                    </el-col>
-                    <el-col :span="16">
-                        <el-button type="primary" icon="el-icon-shopping-cart-full" @click="addToCart">
-                            Add to Cart
-                        </el-button>
-                    </el-col>
-                </el-row>
+
+                <el-input-number v-model="quantity" :min="1" label="Quantity"></el-input-number>
+
+                <el-button class="summit-button" type="primary" icon="el-icon-shopping-cart-full" @click="addToCart">
+                    Add to Cart
+                </el-button>
+
             </el-col>
         </el-row>
 
@@ -72,7 +82,7 @@ export default {
     methods: {
         addToCart() {
             this.$message({
-                message: `Added${this.quantity}items in shopping cart`,
+                message: `Added ${this.quantity} items in shopping cart`,
                 type: "success",
             });
         },
@@ -106,5 +116,14 @@ export default {
 
 .product-tabs {
     margin-top: 20px;
+}
+
+.desc {
+    font-size: 16px;
+    color: #606266;
+}
+
+.summit-button {
+    margin-left: 10px;
 }
 </style>
