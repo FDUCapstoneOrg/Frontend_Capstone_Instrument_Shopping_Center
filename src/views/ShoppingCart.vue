@@ -28,6 +28,7 @@
             Subtotal ({{ totalQnt }} items): ${{ totalPrice }}
         </div>
         <el-button type="primary" @click="checkout">Check Out</el-button>
+        <el-button @click="goBack">Go Back</el-button>
     </div>
 </template>
 
@@ -132,6 +133,9 @@ export default {
                 message: 'Checkout ' + this.totalQnt + ' items, $' + this.totalPrice + ' successful!',
                 type: 'success'
             });
+        },
+        goBack() {
+            this.$router.back();
         }
 
     }
