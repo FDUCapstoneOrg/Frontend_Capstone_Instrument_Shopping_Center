@@ -12,7 +12,7 @@
                 <div>
                     quantity:{{ product.quantity }}
                 </div>
-                <el-button type="text">delete</el-button>
+                <el-button type="text" @click="deleteItem">delete</el-button>
 
             </div>
             <div class="price-area">
@@ -34,6 +34,11 @@ export default {
         return {
         };
     },
+    methods: {
+        deleteItem() {
+            this.$emit("deleteItem", this.product.instrument.sku);
+        }
+    }
 };
 </script>
 
@@ -65,8 +70,6 @@ export default {
     font-size: large;
     font-weight: bold;
 }
-
-.product-details {}
 
 .description {
     font-size: 14px;

@@ -21,7 +21,8 @@
         </el-header>
         <div class="product-list">
             <div class="title">Shopping Cart</div>
-            <CartItem v-for="(product, index) in cartList" :key="index" :product="product" />
+            <CartItem v-for="(product, index) in cartList" :key="index" :product="product"
+                @deleteItem="handleDeleteItem" />
             <div class="bottomline"></div>
         </div>
         <div class="total">
@@ -136,8 +137,27 @@ export default {
         },
         goBack() {
             this.$router.back();
+        },
+        handleDeleteItem(sku) {
+            let userid = localStorage.getItem('userid');
+            this.$axios.delete('/ShoppingCart/removeItemBySku', {
+                params: {
+                    userId: userid,
+                    sku: sku
+                }
+            })
+                .then(response => {
+                    console.log(response);
+                    this.getCartList();
+                    this.$message({
+                        message: 'Delete successful!',
+                        type: 'success'
+                    });
+                })
+                .catch(error => {
+                    console.error("Error in delete request:", error);
+                });
         }
-
     }
 };
 </script>

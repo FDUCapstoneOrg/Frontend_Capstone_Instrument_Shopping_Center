@@ -68,6 +68,7 @@ export default {
               let res = response.data;
               if (res['code'] == 200) {
                 localStorage.setItem('jwtToken', res['jwtToken']);
+                localStorage.setItem('userid', res['message']);
                 this.$message({
                   message: 'Login successful!',
                   type: 'success'
