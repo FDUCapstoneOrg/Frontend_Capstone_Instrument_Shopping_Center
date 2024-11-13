@@ -5,9 +5,9 @@
                 class="product-image" />
 
             <div class="product-details">
-                <div class="title">{{ product.name }}</div>
+                <div class="title">{{ product.instrument.name }}</div>
                 <p class="seller-info">
-                    {{ product.description }}
+                    {{ product.instrument.description }}
                 </p>
                 <div>
                     quantity:{{ product.quantity }}
@@ -16,7 +16,7 @@
 
             </div>
             <div class="price-area">
-                <span class="price">${{ product.price }}</span>
+                <span class="price">${{ product.unitPrice }}</span>
             </div>
         </div>
     </div>

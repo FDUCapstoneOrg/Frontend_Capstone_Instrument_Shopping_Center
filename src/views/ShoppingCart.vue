@@ -27,7 +27,7 @@
         <div class="total">
             Subtotal ({{ totalQnt }} items): ${{ totalPrice }}
         </div>
-        <el-button type="primary">Check Out</el-button>
+        <el-button type="primary" @click="checkout">Check Out</el-button>
     </div>
 </template>
 
@@ -47,49 +47,62 @@ export default {
     },
     created() {
         this.username = localStorage.getItem('user');
-        // this.getCartList();
-        this.cartList = [
-          {
-            name: '智能手机',
-            category: '电子产品',
-            brand: 'Brand A',
-            price: 4999,
-            description: '一款高性能智能手机',
-            material: '金属',
-            stockQuantity: 50,
-            rating: 1,
-            quantity: 3
-          },
-          {
-            name: '笔记本电脑',
-            category: '电子产品',
-            brand: 'Brand B',
-            price: 8999,
-            description: '轻薄型笔记本电脑',
-            material: '铝合金',
-            stockQuantity: 30,
-            rating: 5,
-            quantity: 5
-          },
-          {
-            name: '运动鞋',
-            category: '服装',
-            brand: 'Brand C',
-            price: 599,
-            description: '透气舒适运动鞋',
-            material: '织物',
-            stockQuantity: 100,
-            rating: 3,
-            quantity: 2
-          },
-        ]
+        this.getCartList();
+        // this.cartList = [
+        //     {
+        //         name: '智能手机',
+        //         category: '电子产品',
+        //         brand: 'Brand A',
+        //         price: 4999,
+        //         description: '一款高性能智能手机',
+        //         material: '金属',
+        //         stockQuantity: 50,
+        //         rating: 1,
+        //         quantity: 3
+        //     },
+        //     {
+        //         name: '笔记本电脑',
+        //         category: '电子产品',
+        //         brand: 'Brand B',
+        //         price: 8999,
+        //         description: '轻薄型笔记本电脑',
+        //         material: '铝合金',
+        //         stockQuantity: 30,
+        //         rating: 5,
+        //         quantity: 5
+        //     },
+        //     {
+        //         name: '运动鞋',
+        //         category: '服装',
+        //         brand: 'Brand C',
+        //         price: 599,
+        //         description: '透气舒适运动鞋',
+        //         material: '织物',
+        //         stockQuantity: 100,
+        //         rating: 3,
+        //         quantity: 2
+        //     },
+        // ]
     },
     methods: {
         getCartList() {
-            this.$axios.get('/getCartList')
+            let username = localStorage.getItem('user');
+            this.$axios.get('/ShoppingCart/getShoppingCart', {
+                params: {
+                    username: username
+                }
+            })
                 .then(response => {
                     console.log(response.data);
-                    this.cartList = response.data;
+                    this.cartList = response.data['cartItems'];
+                    let quantityTmp = 0;
+                    let totalTmp = 0;
+                    for (let i = 0; i < this.cartList.length; i++) {
+                        quantityTmp += this.cartList[i].quantity;
+                        totalTmp += this.cartList[i].totalPrice;
+                    }
+                    this.totalQnt = quantityTmp;
+                    this.totalPrice = totalTmp;
                 })
                 .catch(error => {
                     console.error(error);
@@ -112,6 +125,13 @@ export default {
                 default:
                     break;
             }
+        },
+        checkout() {
+            // this.cartList = [];
+            this.$message({
+                message: 'Checkout ' + this.totalQnt + ' items, $' + this.totalPrice + ' successful!',
+                type: 'success'
+            });
         }
 
     }
@@ -122,6 +142,7 @@ export default {
 .bottomline {
     border-top: 1px solid grey;
 }
+
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -167,9 +188,11 @@ export default {
 .el-pagination {
     margin-top: 20px;
 }
+
 .title {
     margin-bottom: 20px;
 }
+
 .total {
     margin: 20px;
     text-align: right;

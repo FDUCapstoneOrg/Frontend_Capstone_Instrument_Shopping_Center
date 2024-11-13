@@ -113,7 +113,7 @@ export default {
     // ]
   },
   methods: {
-    goToCart(){
+    goToCart() {
       this.$router.push('/cart');
     },
     handleSizeChange(pageSize) {
@@ -142,7 +142,30 @@ export default {
       this.$router.push('/detail');
     },
     addToCart(row) {
+      let username = localStorage.getItem('user');
       console.log(row);
+      this.$axios.post('/ShoppingCart/addItem', {
+        sku: row.sku
+      }, {
+        params: {
+          username: username,
+          quantity: 1
+        }
+      })
+        .then(response => {
+          console.log(response.data);
+          this.$message({
+              message: 'Add to Cart successfully',
+              type: 'success'
+            });
+        })
+        .catch(error => {
+          console.log(error);
+          this.$message({
+            message: 'failed to add to cart, please try again.',
+            type: 'error'
+          });
+        });
     },
     handleCommand(option) {
       switch (option) {
