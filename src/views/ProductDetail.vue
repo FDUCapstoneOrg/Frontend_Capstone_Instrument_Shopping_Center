@@ -33,14 +33,18 @@
                 </el-row>
 
                 <el-divider></el-divider>
-                <!-- 数量选择和添加到购物车按钮 -->
+                <!-- 数量选择和按钮组 -->
+                <div class="action-buttons">
+                    <el-input-number v-model="quantity" :min="1" label="Quantity"></el-input-number>
 
-                <el-input-number v-model="quantity" :min="1" label="Quantity"></el-input-number>
+                    <el-button class="summit-button" type="primary" icon="el-icon-shopping-cart-full" @click="addToCart">
+                        Add to Cart
+                    </el-button>
 
-                <el-button class="summit-button" type="primary" icon="el-icon-shopping-cart-full" @click="addToCart">
-                    Add to Cart
-                </el-button>
-
+                    <el-button type="default" @click="goBack" icon="el-icon-arrow-left">
+                        Go Back
+                    </el-button>
+                </div>
             </el-col>
         </el-row>
 
@@ -48,6 +52,16 @@
         <el-tabs type="border-card" class="product-tabs">
             <el-tab-pane label="Product Detail">
                 <p>{{ product.details }}</p>
+                <!-- YouTube Video -->
+                <div class="video-container">
+                    <iframe
+                        v-if="product.videoUrl"
+                        :src="product.videoUrl"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                    ></iframe>
+                </div>
             </el-tab-pane>
             <el-tab-pane label="Comments">
                 <el-list v-if="product.reviews.length > 0">
@@ -70,10 +84,11 @@ export default {
                 price: 199.99,
                 image: require('@/assets/guitar.png'),
                 description: "The guitar is a popular string instrument, typically with six strings, known for its versatility across various musical styles such as rock, jazz, blues, classical, and folk. It consists of a wooden body that amplifies the sound, a neck with frets to control pitch, and tuning pegs to adjust string tension. ",
-                details: "这里是商品的详细信息。",
+                details: "The Yamaha FG800 Acoustic Guitar is a timeless classic, crafted for musicians of all levels who demand superior sound quality, exceptional craftsmanship, and unparalleled playability. Whether you're strumming your first chords or performing on stage, the FG800 is designed to elevate your music journey.",
+                videoUrl: "https://www.youtube.com/embed/uePV98PEU-w", // Replace VIDEO_ID with actual YouTube video ID
                 reviews: [
-                    { username: "用户1", comment: "非常好！" },
-                    { username: "用户2", comment: "质量不错。" },
+                    { username: "Anonymous User 1", comment: "Very good！" },
+                    { username: "Anonymous User 2", comment: "Quality is outstanding." },
                 ],
             },
             quantity: 1,
@@ -86,13 +101,25 @@ export default {
                 type: "success",
             });
         },
+        goBack() {
+            // Use browser history to go back
+            window.history.back();
+        },
     },
 };
 </script>
 
 <style scoped>
 .product-detail {
+    position: relative;
     padding: 20px;
+}
+
+.go-back-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
 }
 
 .product-image {
@@ -125,5 +152,22 @@ export default {
 
 .summit-button {
     margin-left: 10px;
+}
+
+.video-container {
+    position: relative;
+    padding-top: 56.25%; /* Aspect ratio 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
 </style>
