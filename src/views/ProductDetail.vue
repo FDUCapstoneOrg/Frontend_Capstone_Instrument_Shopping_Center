@@ -105,11 +105,10 @@ export default {
                 });
         },
 
-        addToCart(row) {
+        addToCart() {
             let username = localStorage.getItem('user');
-            console.log(row);
             this.$axios.post('/ShoppingCart/addItem', {
-                sku: row.sku
+                sku: this.$route.query.sku
             }, {
                 params: {
                     username: username,
