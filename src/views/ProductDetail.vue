@@ -37,7 +37,8 @@
                 <div class="action-buttons">
                     <el-input-number v-model="quantity" :min="1" label="Quantity"></el-input-number>
 
-                    <el-button class="summit-button" type="primary" icon="el-icon-shopping-cart-full" @click="addToCart">
+                    <el-button class="summit-button" type="primary" icon="el-icon-shopping-cart-full"
+                        @click="addToCart">
                         Add to Cart
                     </el-button>
 
@@ -54,13 +55,9 @@
                 <p>{{ product.detail }}</p>
                 <!-- YouTube Video -->
                 <div class="video-container">
-                    <iframe
-                        v-if="product.audiourl"
-                        :src="product.audiourl"
-                        frameborder="0"
+                    <iframe v-if="product.audiourl" :src="product.audiourl" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                    ></iframe>
+                        allowfullscreen></iframe>
                 </div>
             </el-tab-pane>
             <el-tab-pane label="Comments">
@@ -80,48 +77,65 @@ export default {
     data() {
         return {
             product: {
-                name: "Yamaha Guitar",
-                price: 199.99,
-                image: require('@/assets/guitar.png'),
-                description: "The guitar is a popular string instrument, typically with six strings, known for its versatility across various musical styles such as rock, jazz, blues, classical, and folk. It consists of a wooden body that amplifies the sound, a neck with frets to control pitch, and tuning pegs to adjust string tension. ",
-                details: "The Yamaha FG800 Acoustic Guitar is a timeless classic, crafted for musicians of all levels who demand superior sound quality, exceptional craftsmanship, and unparalleled playability. Whether you're strumming your first chords or performing on stage, the FG800 is designed to elevate your music journey.",
-                videoUrl: "https://www.youtube.com/embed/uePV98PEU-w", // Replace VIDEO_ID with actual YouTube video ID
-                reviews: [
-                    { username: "Anonymous User 1", comment: "Very good！" },
-                    { username: "Anonymous User 2", comment: "Quality is outstanding." },
-                ],
+                // name: "Yamaha Guitar",
+                // price: 199.99,
+                // image: require('@/assets/guitar.png'),
+                // description: "The guitar is a popular string instrument, typically with six strings, known for its versatility across various musical styles such as rock, jazz, blues, classical, and folk. It consists of a wooden body that amplifies the sound, a neck with frets to control pitch, and tuning pegs to adjust string tension. ",
+                // details: "The Yamaha FG800 Acoustic Guitar is a timeless classic, crafted for musicians of all levels who demand superior sound quality, exceptional craftsmanship, and unparalleled playability. Whether you're strumming your first chords or performing on stage, the FG800 is designed to elevate your music journey.",
+                // videoUrl: "https://www.youtube.com/embed/uePV98PEU-w", // Replace VIDEO_ID with actual YouTube video ID
+                // reviews: [
+                //     { username: "Anonymous User 1", comment: "Very good！" },
+                //     { username: "Anonymous User 2", comment: "Quality is outstanding." },
+                // ],
             },
             quantity: 1,
         };
     },
-    methods: {
-        
-        addToCart(row) {
-      let username = localStorage.getItem('user');
-      console.log(row);
-      this.$axios.post('/ShoppingCart/addItem', {
-        sku: row.sku
-      }, {
-        params: {
-          username: username,
-          quantity: this.quantity
-        }
-      })
-        .then(response => {
-          console.log(response.data);
-          this.$message({
-              message: 'Add to Cart successfully',
-              type: 'success'
-            });
-        })
-        .catch(error => {
-          console.log(error);
-          this.$message({
-            message: 'failed to add to cart, please try again.',
-            type: 'error'
-          });
-        });
+    created() {
+        this.initialDetail();
     },
+    methods: {
+        initialDetail() {
+            this.$axios.get('/Instrument/getInstrumentBySku', {
+                params: {
+                    sku: this.$route.query.sku
+                }
+            })
+                .then(response => {
+                    console.log(response.data);
+                    this.product = response.data.instrument;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+
+        addToCart(row) {
+            let username = localStorage.getItem('user');
+            console.log(row);
+            this.$axios.post('/ShoppingCart/addItem', {
+                sku: row.sku
+            }, {
+                params: {
+                    username: username,
+                    quantity: this.quantity
+                }
+            })
+                .then(response => {
+                    console.log(response.data);
+                    this.$message({
+                        message: 'Add to Cart successfully',
+                        type: 'success'
+                    });
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.$message({
+                        message: 'failed to add to cart, please try again.',
+                        type: 'error'
+                    });
+                });
+        },
         goBack() {
             // Use browser history to go back
             window.history.back();
@@ -177,7 +191,8 @@ export default {
 
 .video-container {
     position: relative;
-    padding-top: 56.25%; /* Aspect ratio 16:9 */
+    padding-top: 56.25%;
+    /* Aspect ratio 16:9 */
     height: 0;
     overflow: hidden;
     margin-top: 20px;

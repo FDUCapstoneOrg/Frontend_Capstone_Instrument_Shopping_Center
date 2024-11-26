@@ -139,7 +139,9 @@ export default {
     },
     goToDetail(row) {
       console.log(row);
-      this.$router.push('/detail');
+      this.$router.push({path: '/detail', query: {
+        sku: row.sku
+      }});
     },
     addToCart(row) {
       let username = localStorage.getItem('user');
@@ -155,9 +157,9 @@ export default {
         .then(response => {
           console.log(response.data);
           this.$message({
-              message: 'Add to Cart successfully',
-              type: 'success'
-            });
+            message: 'Add to Cart successfully',
+            type: 'success'
+          });
         })
         .catch(error => {
           console.log(error);
