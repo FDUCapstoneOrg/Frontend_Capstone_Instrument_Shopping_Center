@@ -129,11 +129,23 @@ export default {
             }
         },
         checkout() {
-            // this.cartList = [];
-            this.$message({
-                message: 'Checkout ' + this.totalQnt + ' items, $' + this.totalPrice + ' successful!',
-                type: 'success'
-            });
+            let userid = localStorage.getItem('userid');
+            this.$axios.delete('/ShoppingCart/clearShoppingCartById', {
+                params: {
+                    userId: userid
+                }
+            })
+                .then(response => {
+                    console.log(response.data);
+                    this.cartList = [];
+                    this.$message({
+                        message: 'Checkout ' + this.totalQnt + ' items, $' + this.totalPrice + ' successful!',
+                        type: 'success'
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         },
         goBack() {
             this.$router.back();
