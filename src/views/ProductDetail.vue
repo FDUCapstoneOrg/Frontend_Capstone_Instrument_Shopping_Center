@@ -55,7 +55,7 @@
                 <p>{{ product.detail }}</p>
                 <!-- YouTube Video -->
                 <div class="video-container">
-                    <iframe v-if="product.audiourl" :src="product.audiourl" frameborder="0"
+                    <iframe v-if="product.audioURL" :src="product.audioURL" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
                 </div>
