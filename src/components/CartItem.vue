@@ -1,7 +1,7 @@
 <template>
     <div class="product-card">
         <div class="product-info">
-            <img src="product.instrument.imageURL" alt="picture"
+            <img :src="product.instrument.imageURL" alt="picture"
                 class="product-image" />
 
             <div class="product-details">
