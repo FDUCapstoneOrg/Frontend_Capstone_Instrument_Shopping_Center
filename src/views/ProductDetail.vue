@@ -61,12 +61,7 @@
                 </div>
             </el-tab-pane>
             <el-tab-pane label="Comments">
-                <el-list v-if="product.reviews.length > 0">
-                    <el-list-item v-for="(review, index) in product.reviews" :key="index">
-                        <p><strong>{{ review.username }}:</strong> {{ review.comment }}</p>
-                    </el-list-item>
-                </el-list>
-                <p v-else>No Reviews</p>
+                <p>No Reviews</p>
             </el-tab-pane>
         </el-tabs>
     </div>
