@@ -1,7 +1,7 @@
 <template>
     <div class="product-card">
         <div class="product-info">
-            <img src="https://m.media-amazon.com/images/I/41P0qtzxWSL._AC_AA180_.jpg" alt="picture"
+            <img src="product.instrument.imageURL" alt="picture"
                 class="product-image" />
 
             <div class="product-details">

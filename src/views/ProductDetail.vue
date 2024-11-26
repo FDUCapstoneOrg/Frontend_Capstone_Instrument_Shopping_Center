@@ -3,7 +3,7 @@
         <el-row :gutter="20">
             <!-- 左侧商品图片展示 -->
             <el-col :span="6">
-                <el-image class="product-image" :src="product.image" alt="Product Image" fit="contain" />
+                <el-image class="product-image" :src="product.imageURL" alt="Product Image" fit="cover" />
             </el-col>
 
             <!-- 右侧商品信息展示 -->
