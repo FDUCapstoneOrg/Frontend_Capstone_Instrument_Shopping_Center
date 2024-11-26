@@ -51,12 +51,12 @@
         <!-- 商品详情和评论信息 -->
         <el-tabs type="border-card" class="product-tabs">
             <el-tab-pane label="Product Detail">
-                <p>{{ product.details }}</p>
+                <p>{{ product.detail }}</p>
                 <!-- YouTube Video -->
                 <div class="video-container">
                     <iframe
-                        v-if="product.videoUrl"
-                        :src="product.videoUrl"
+                        v-if="product.audiourl"
+                        :src="product.audiourl"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen
@@ -95,12 +95,33 @@ export default {
         };
     },
     methods: {
-        addToCart() {
-            this.$message({
-                message: `Added ${this.quantity} items in shopping cart`,
-                type: "success",
+        
+        addToCart(row) {
+      let username = localStorage.getItem('user');
+      console.log(row);
+      this.$axios.post('/ShoppingCart/addItem', {
+        sku: row.sku
+      }, {
+        params: {
+          username: username,
+          quantity: this.quantity
+        }
+      })
+        .then(response => {
+          console.log(response.data);
+          this.$message({
+              message: 'Add to Cart successfully',
+              type: 'success'
             });
-        },
+        })
+        .catch(error => {
+          console.log(error);
+          this.$message({
+            message: 'failed to add to cart, please try again.',
+            type: 'error'
+          });
+        });
+    },
         goBack() {
             // Use browser history to go back
             window.history.back();
